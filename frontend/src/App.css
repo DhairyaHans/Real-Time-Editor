@@ -1,0 +1,293 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    min-height: 0;
+    /* border: 2px dashed white; */
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    min-height: 0;
+    padding: 0 10px;
+    height: 100%;
+    overflow-y: auto;
+    /* overflow: hidden; */
+}
+
+.toolbar {
+    /* border: 2px dotted var(--border); */
+    display: flex;
+    flex-direction: row;
+    justify-content:flex-end;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg-div);
+    border-radius: 5px;
+    flex-shrink: 0
+}
+
+h2 {
+    /* border: 1px dashed var(--border); */
+    margin-inline-end: 10px;
+}
+
+.editorContainer {
+    flex: 1;
+    min-height: 0;
+    /* overflow: hidden; */
+    overflow: auto;
+    display: flex;
+    flex-direction: row;
+
+
+    outline: 2px solid pink;
+    padding: 2px;
+}
+/* 
+.editorWrapper {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.editor {
+    width: 100%;
+
+    flex:1;
+    min-height: 0;
+    overflow: auto;
+
+    height: 100%;
+    border: 2px dotted var(--border);
+    background: var(--bg);
+    
+    box-sizing: border-box;
+    caret-color: yellow;
+}
+
+.editorMirror {
+    position: absolute; 
+    visibility: visible;
+    pointer-events: none; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    min-height: 0;
+    overflow: hidden;
+
+    font: inherit;
+    padding: inherit;
+    border: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+
+    height: 100%;
+    width: 100%;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+
+    border: 4px solid red;
+
+    box-sizing: border-box;
+}
+
+.editorOverlay {
+    position: absolute; 
+    visibility: visible;
+    pointer-events: none; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    min-height: 0;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+
+    height: 100%;
+    width: 100%;
+    border: 3px solid blue;
+    box-sizing: border-box;
+} */
+
+.editorWrapper {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: visible;
+}
+
+.editor,
+.editorMirror {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    box-sizing: border-box;
+
+    margin: 0;
+    padding: 2px;
+
+    border: 2px solid transparent;
+
+    font: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+
+    text-align: left;
+
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+
+    tab-size: 4;
+}
+
+.editor {
+    z-index: 2;
+
+    resize: none;
+    overflow: auto;
+
+    background: var(--bg);
+    caret-color: yellow;
+}
+
+.editorMirror {
+    z-index: 1;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    visibility: visible;
+
+    color: transparent;
+}
+
+.editorOverlay {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    pointer-events: none;
+    overflow: visible;
+
+    z-index: 20;
+}
+
+.remoteCursor {
+    position: absolute;
+
+    width: 2px;
+    min-height: 20px;
+
+    pointer-events: none;
+}
+
+.remoteCursorLabel {
+    position: absolute;
+
+    top: -22px;
+    left: 0;
+
+    white-space: nowrap;
+
+    font-size: 11px;
+    line-height: 14px;
+
+    padding: 2px 5px;
+    border-radius: 3px;
+
+    background: inherit;
+    color: white;
+
+    z-index: 30;
+}
+
+.editorPreview {
+    width: 100%;
+
+    flex:1;
+    min-height: 0;
+    overflow: auto;
+
+    border: 2px dotted var(--border);
+
+    
+    box-sizing: border-box;
+}
+
+.editorPreview * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: rgb(31, 31, 226);
+    /* background: rgb(235, 101, 101); */
+}
+
+.clayyy {
+    height: 200px;
+    width: 200px;
+    background: #FCE59A;
+    position: fixed;
+    top: 200px;
+    left: 500px;
+    border: 2px dotted red ;
+    
+    backdrop-filter: blur(5px);
+    /* backdrop-filter: brightness(40%); */
+    /* backdrop-filter: contrast(50%) */
+    /* backdrop-filter: drop-shadow(4px 4px 10px rgb(1, 173, 241)) */
+    /* backdrop-filter: grayscale(100%); */
+    /* backdrop-filter: hue-rotate(60deg) */
+    /* backdrop-filter: invert(100%) */
+    /* backdrop-filter: opacity(10%) */
+    /* backdrop-filter: sepia(100%) */
+    /* backdrop-filter: saturate(10%) */
+
+
+    /* border-radius: 10px; */
+    /* border-radius: 10em; */
+    /* border-radius: 10rem; */
+    /* border-radius: 10%; */
+    /* border-radius: 10px 30px */
+    /* border-radius: 10px 30px 40px ; */
+    /* border-radius: 10px 20px 30px 40px; */
+    /* border-radius: 5px 50px 50px  */
+    border-radius: 50px 50px 50px 5px;
+    /* border-radius: 60px 60px 60px 40px / 60px 60px 60px 5px */
+
+    /* box-shadow: 10px 10px pink */
+    /* box-shadow: -10px 10px pink */
+    /* box-shadow: -10px -10px pink; */
+    /* box-shadow: 10px -10px pink; */
+    /* box-shadow: 10px 10px 30px pink; */
+    /* box-shadow: 10px 10px 30px 10px pink; */
+    /* box-shadow: 10px 10px pink inset; */
+    /* box-shadow: 10px -10px pink inset; */
+    /* box-shadow: -10px -10px pink inset; */
+    /* box-shadow: -10px 10px pink inset; */
+    /* box-shadow: 10px 10px 80px rgb(70, 89, 232, 0.5) inset, -20px -20px 20px rgb(70, 89, 232, 0.6) inset, 0px 10px 28px 0px white inset; */
+    /* box-shadow: -10px -10px 20px 10px rgb(58, 67, 236) inset; */
+    box-shadow: 10px 10px 80px rgb(255, 215, 88, 0.5) inset, -20px -20px 20px rgb(255, 215, 88, 0.6) inset, 0px 10px 28px 0px white inset;
+
+
+
+}
+
+/* .editorMirror {
+    color: red;
+    background: rgba(255, 0, 0, 0.05);
+} */
