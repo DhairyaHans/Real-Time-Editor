@@ -1,15 +1,24 @@
 :root {
-    --text: #373434;
+    /* --text: #373434;
     --text-h: #1c1c1c;
     --bg:#cfcfcf;
     --border: #ef8b3f;
-    --bg-div: #423f3f; 
+    --bg-div: #423f3f;  */
+
+    --text: #373434;
+    --text-h: #1c1c1c;
+    --bg:#CFEBFF;
+    --border: #ef8b3f;
+    --bg-div: #423f3f;
+    --editor-bg: #218DAE;
+    --light-blue-bg: #2BBBD7;
+    --button-bg: #ffffff;
     
     font-size: 18px/100%;
     letter-spacing: 0.18px;
     color-scheme: light dark;
 
-    color: var(--text);
+color: var(--text);
     background: var(--bg);
     /* border: 5px solid var(--border); */
     min-height: 100dvh;
@@ -32,9 +41,12 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --text: #cfcfcf;
-        --text-h: rgb(146, 144, 144);
-        --bg:#1c1c1c;
+        --text: #180909;
+        --text-h: #180909;
+        --bg: #CFEBFF;
+        --bg-div: #CFEBFF;
+        --editor-bg: #218DAE;
+        /* --bg-div: #218DAE; */
         /* --border: #44dd0c; */
     }
 }

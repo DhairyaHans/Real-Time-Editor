@@ -3,6 +3,8 @@ import './App.css'
 import BoldIcon from './assets/icons/type-bold.svg?react'
 import ItalicIcon from './assets/icons/type-italic.svg?react'
 import UnderlineIcon from './assets/icons/type-underline.svg?react'
+import PreviewFileIcon from './assets/icons/preview.svg?react'
+import ClosePreviewIcon from './assets/icons/close-preview.svg?react'
 // import RedoIcon from './assets/icons/redo.svg?react'
 // import UndoIcon from './assets/icons/undo.svg?react'
 import { marked } from 'marked'
@@ -28,6 +30,8 @@ function App() {
   const overlayRef = useRef<HTMLDivElement>(null)
   const [cursorColorMap, setCursorColorMap] = useState(new Map<string, string>())
   const [usersCursorPositions, setUsersCursorPositions] = useState(new Map<string, RemoteCursor>())
+  const [previewEditor, togglePreviewEditor] = useState(true)
+
 
   // const [undoStates, setUndoStates] = useState<string[]>([])
   // const [redoStates, setRedoStates] = useState<string[]>([])
@@ -228,14 +232,17 @@ function App() {
         cursorElement.style.height =
             `${rect.height || 20}px`
 
-        cursorElement.style.backgroundColor =
-            cursorColorMap.get(cursor.user) ?? '#ffffff'
+        const color = cursorColorMap.get(cursor.user) ?? '#ffffff'
 
+        cursorElement.style.backgroundColor = color
+        
         const label = document.createElement('span')
-
         label.className = 'remoteCursorLabel'
         label.textContent = cursor.user
+        // label.style.background = color
+        label.style.setProperty('--cursor-color', color)
 
+        
         cursorElement.appendChild(label)
         overlay.appendChild(cursorElement)
 
@@ -355,29 +362,63 @@ function App() {
       socket.disconnect()
     }
   }, [])
+
+  const togglePreview = () => {
+    // Toggle previewEditor
+    togglePreviewEditor(!previewEditor)
+
+    // Toggle Button
+    const toggleBtn = document.getElementsByClassName('togglePreviewBtn') 
+    // preview div
+    const editorPreviewDiv = document.getElementsByClassName('editorPreview') ?? null
+    // Editor Wrapper
+    const editorWrapperDiv = document.getElementsByClassName('editorWrapper') ?? null
+
+    console.log(previewEditor)
+    console.log(toggleBtn)
+    console.log(editorPreviewDiv)
+    console.log(editorWrapperDiv)
+
+    if (previewEditor===true){
+      toggleBtn.innerHtml = ClosePreviewIcon
+      // editorPreviewDiv.styles.display = 'block'
+      // editorWrapperDiv.styles.flex = 1
+    }else{
+      toggleBtn.innerHtml = PreviewFileIcon
+      // editorPreviewDiv.style.display = 'none'
+    }
+
+  }
   
   return (
     <div className="app">
-      <h1>Real Time File Editor</h1>
-      <div className='clayyy'>
-      </div>
+      <h1 className='header'>Real Time File Editor</h1>
+      {/* <div className='clayyy'>
+      </div> */}
       <div className="main">
         <div className="toolbar">
           <button
             onClick={() => wrapSelection('**', '**')}
           >
-            <BoldIcon />
+            <BoldIcon width="16" height="16"/>
           </button>
           <button
             onClick={() => wrapSelection('*', '*')}
           >
-            <ItalicIcon/>
+            <ItalicIcon width="16" height="16"/>
           </button>
           <button
             onClick={() => wrapSelection('<u>', '</u>')}
           >
-            <UnderlineIcon/>
+            <UnderlineIcon width="16" height="16"/>
           </button>
+          <button 
+            className = "togglePreviewBtn"
+            onClick={() => togglePreview()}
+          >
+            { previewEditor ? <PreviewFileIcon width="16" height="16"/> : < ClosePreviewIcon width="16" height="16"/>}
+          </button>
+
           {/* <button
             onClick={() => {
               undoContent()
@@ -426,10 +467,10 @@ function App() {
               className="editorOverlay"
             ></div>
           </div>
-          <div 
+          { previewEditor && <div 
             className="editorPreview" 
             dangerouslySetInnerHTML={{__html: marked(mdContent)}}
-          />
+          />}
         </div>
       </div>
     </div>
