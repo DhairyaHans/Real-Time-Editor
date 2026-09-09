@@ -89,7 +89,7 @@ function App() {
       if (prev.has(user)) return prev
 
       const newMap = new Map(prev)
-      newMap.set(user, color ?? getRandomHexColor())
+      newMap.set(user, color ?? getRandomRGBColor())
       return newMap
     })
   }
@@ -278,6 +278,7 @@ function App() {
   }
 
   const getRandomHexColor = () => `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+  const getRandomRGBColor = () => `${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}`;
 
   const updateCursorPosition = () => {
     const textArea = textareaRef.current;
@@ -392,50 +393,52 @@ function App() {
   
   return (
     <div className="app">
-      <h1 className='header'>Real Time File Editor</h1>
+      <h1 className='header'>
+        <p className='headerText'>Real Time File Editor</p>
+      </h1>
       {/* <div className='clayyy'>
+        <h1>laskdjaslkkjd</h1>
       </div> */}
+      <div className="toolbar">
+        <button
+          onClick={() => wrapSelection('**', '**')}
+        >
+          <BoldIcon width="16" height="16"/>
+        </button>
+        <button
+          onClick={() => wrapSelection('*', '*')}
+        >
+          <ItalicIcon width="16" height="16"/>
+        </button>
+        <button
+          onClick={() => wrapSelection('<u>', '</u>')}
+        >
+          <UnderlineIcon width="16" height="16"/>
+        </button>
+        <button 
+          className = "togglePreviewBtn"
+          onClick={() => togglePreview()}
+        >
+          { previewEditor ? <PreviewFileIcon width="16" height="16"/> : < ClosePreviewIcon width="16" height="16"/>}
+        </button>
+        {/* <button
+          onClick={() => {
+            undoContent()
+          }}
+          disabled={(undoStates.length === 0)}
+        >
+          <UndoIcon />
+        </button>
+        <button
+          onClick={() => {
+            redoContent()
+          }}
+          disabled={(redoStates.length===0)}
+        >
+          <RedoIcon />
+        </button> */}
+      </div>
       <div className="main">
-        <div className="toolbar">
-          <button
-            onClick={() => wrapSelection('**', '**')}
-          >
-            <BoldIcon width="16" height="16"/>
-          </button>
-          <button
-            onClick={() => wrapSelection('*', '*')}
-          >
-            <ItalicIcon width="16" height="16"/>
-          </button>
-          <button
-            onClick={() => wrapSelection('<u>', '</u>')}
-          >
-            <UnderlineIcon width="16" height="16"/>
-          </button>
-          <button 
-            className = "togglePreviewBtn"
-            onClick={() => togglePreview()}
-          >
-            { previewEditor ? <PreviewFileIcon width="16" height="16"/> : < ClosePreviewIcon width="16" height="16"/>}
-          </button>
-
-          {/* <button
-            onClick={() => {
-              undoContent()
-            }}
-            disabled={(undoStates.length === 0)}
-          >
-            <UndoIcon />
-          </button>
-          <button
-            onClick={() => {
-              redoContent()
-            }}
-            disabled={(redoStates.length===0)}
-          >
-            <RedoIcon />
-          </button> */}
-        </div>
         <div className='editorContainer'>
           <div className="editorWrapper">
             <textarea
@@ -447,32 +450,33 @@ function App() {
                 console.log("EDITOR CHANGE EVENT CAPTURED")
                 socket.emit("editor-change", e.target.value)
                 requestAnimationFrame(() => {
-                    updateCursorPosition()
+                  updateCursorPosition()
                 })
               }}
               onMouseUp={() => {
-                  requestAnimationFrame(updateCursorPosition)
+                requestAnimationFrame(updateCursorPosition)
               }}
-
+              
               onKeyUp={() => {
-                  requestAnimationFrame(updateCursorPosition)
+                requestAnimationFrame(updateCursorPosition)
               }}
-            />
+              />
             <div
               ref={mirrorRef}
               className="editorMirror"
-            ></div>
+              ></div>
             <div 
               ref={overlayRef} 
               className="editorOverlay"
-            ></div>
+              ></div>
           </div>
           { previewEditor && <div 
             className="editorPreview" 
             dangerouslySetInnerHTML={{__html: marked(mdContent)}}
-          />}
+            />}
         </div>
       </div>
+    
     </div>
   )
 }
