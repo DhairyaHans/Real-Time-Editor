@@ -45,8 +45,8 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    /* height: 100vh; */
-    /* min-height: 0; */
+    height: 100vh;
+    min-height: 0;
     gap: 20px;
 }
 
@@ -60,18 +60,18 @@ body{
     background: var(--bg-div);
     padding: 10px;
     box-shadow: 
-        7px 8px 25px 0px rgba(var(--bg-shadow-dark), 0.6),
-        inset 2px 6px 12px 0px rgb(var(--bg-highlight-light)), 
-        inset -2px -6px 12px 0px rgba(var(--bg-shadow-dark), 0.5);
+        10px 6px 20px 0px rgba(var(--bg-shadow-dark), 0.6),
+        inset 4px 6px 8px 0px rgb(255, 255, 255), 
+        inset -5px -10px 20px 0px rgba(var(--bg-shadow-dark), 0.5);
 }
 
 .headerText{
     border-radius: 18px;
-    /* background: rgb(var(--bg-shadow-dark)); */
-    margin: 15px;
+    background: rgb(var(--bg-shadow-dark));
+    margin: 20px;
     box-shadow: 
-        inset 2px 5px 6px 0px rgba(var(--bg-shadow-dark), 0.6);
-        /* inset 0px -2px 12px 0px rgba(var(--bg-highlight-light), 0.5); */
+        inset 2px 3px 8px 0 rgb(0, 0, 0, 0.5),
+        inset -2px -5px 8px 0px rgba(35, 124, 188, 0.6);
 }
 
 .toolbar {
@@ -84,9 +84,9 @@ body{
     border-radius: 24px;
     background: var(--bg-div);
     box-shadow: 
-        7px 8px 25px 0px rgba(var(--bg-shadow-dark), 0.6),
-        inset 2px 6px 12px 0px rgb(var(--bg-highlight-light)), 
-        inset -2px -6px 12px 0px rgba(var(--bg-shadow-dark), 0.5);
+        10px 8px 30px 0px rgba(var(--bg-shadow-dark), 0.6),
+        inset 2px 3px 8px 0px rgb(255, 255, 255), 
+        inset -5px -10px 20px 0px rgba(var(--bg-shadow-dark), 0.5);
 }
 
 button {
@@ -99,13 +99,9 @@ button {
 
     border-radius: 6px;
     background: var(--bg-button);
-    /* box-shadow: 
-        0px 2px 5px 0px rgba(var(--bg-shadow-dark), 0.6),
-        inset 0px 2px 5px 0px rgb(255, 255, 255); */
     box-shadow: 
-        0px 2px 5px 0px rgba(var(--bg-shadow-dark), 0.6),
-        inset 0px 1px 3px 0px rgba(var(--bg-highlight-light), 0.6);
-
+        0px 2px 5px 0px rgba(var(--bg-button-shadow-dark), 0.6),
+        inset 0px 2px 5px 0px rgb(255, 255, 255);
 
     transition:
         transform 0.08s ease,
@@ -116,8 +112,8 @@ button:active{
     transform: translateY(1px);
  
     box-shadow: 
-        0px 2px 5px 0px rgba(var(--bg-highlight-light), 0.6),
-        inset 0px 1px 3px 0px rgba(var(--bg-shadow-dark), 0.6);
+        0px 2px 5px 0px rgb(255, 255, 255),
+        inset 0px 2px 5px 0px rgba(var(--bg-button-shadow-dark), 0.6);
 }
 
 .main {
@@ -132,10 +128,11 @@ button:active{
     border-radius: 26px;
     background: var(--bg-div);
     box-shadow: 
-        7px 8px 25px 0px rgba(var(--bg-shadow-dark), 0.6),
-        inset 2px 6px 12px 0px rgb(var(--bg-highlight-light)), 
-        inset -2px -6px 24px 0px rgba(var(--bg-shadow-dark), 0.5);
+        10px 10px 30px 0px rgba(var(--bg-shadow-dark), 0.6),
+        inset 5px 5px 15px 0px rgb(255, 255, 255),
+        inset -5px -15px 20px 0 rgba(var(--bg-shadow-dark), 0.5);
 }
+
 
 .editorContainer {
     flex: 1;
@@ -161,13 +158,15 @@ button:active{
 
     padding: 20px;
     border-radius: 24px;
+    background: rgb(var(--bg-shadow-dark));
     box-shadow: 
-        inset 2px 5px 13px 0px rgba(var(--bg-shadow-dark), 0.6);
+        2px 5px 10px 0px rgba(255, 255, 255, 0.5),
+        inset 5px 10px 20px 0px rgb(0, 0, 0, 0.5),
+        inset -8px -15px 20px 0px rgba(35, 124, 188, 0.6);
 }
 
 .editor,
 .editorMirror {
-    color: var(--text);
     font-family: 'QuickSand', 'Sofadi One', monospace;
     font-weight: 600;
 
@@ -191,6 +190,7 @@ button:active{
     white-space: pre-wrap;
     overflow-wrap: break-word;
     background: inherit;
+    box-shadow: inherit;
     border-radius: inherit;
     tab-size: 4;
 }
@@ -200,13 +200,7 @@ button:active{
     resize: none;
     overflow: auto;
     border: none;
-    outline: none;
 }
-/* 
-.editor:focus{
-    box-shadow: 
-        inset -2px -5px 18px 0px rgba(var(--bg-highlight-light), 1);
-} */
 
 .editorMirror {
     z-index: 1;
@@ -215,6 +209,7 @@ button:active{
 
     overflow: hidden;
 
+    visibility: visible;
 }
 
 .editorOverlay {
@@ -236,8 +231,8 @@ button:active{
     position: absolute;
 
     width: 2px;
-    min-height: 10px;
-    background: oklch(var(--cursor-color));
+    min-height: 20px;
+
     pointer-events: none;
 }
 
@@ -250,23 +245,17 @@ button:active{
     white-space: nowrap;
     /* border: 2px solid red; */
 
-    font-size: 10px;
-    line-height: 12px;
-    /* flex-wrap: wrap; */
+    font-size: 11px;
+    line-height: 14px;
 
-    padding: 8px;
-    /* backdrop-filter: blur(2px); */
+    padding: 15px;
+    backdrop-filter: blur(5px);
     border-radius: 10px 10px 10px 2px;
-    background: oklch(var(--cursor-color));
-    /* box-shadow: 
-        0px 1px 3px 0px oklch(var(--cursor-shadow-shade) / 0.5),
-        inset 0px 0.5px 12px 0px oklch(var(--cursor-highlight-shade)),
-        inset 0px -2px 4px 0px oklch(var(--cursor-shadow-shade) / 0.6); */
+    /* background: rgb(var(--cursor-color)); */
     box-shadow: 
-        inset 0px 1px 6px 0px oklch(var(--cursor-shadow-shade) / 0.7),
-        inset 0px 1px 5px 0px oklch(var(--cursor-color) / 0.6),
-        inset 0px 1px 5px 0px oklch(var(--cursor-color) / 0.6),
-        inset 0px 1px 5px 0px oklch(var(--cursor-color) / 0.6);
+        0px 2px 4px 0px rgba(var(--cursor-color), 0.5),
+        inset 0px 1px 2px 0px white,
+        inset -1px -3px 4px 0px rgba(var(--cursor-color), 0.6);
 
     z-index: 30;
 }
@@ -277,8 +266,10 @@ button:active{
     overflow: visible;
     padding: 20px;
     border-radius: 24px;
+    background: rgb(var(--bg-shadow-dark));
     box-shadow: 
-        inset 2px 5px 13px 0px rgba(var(--bg-shadow-dark), 0.6);
+        inset 5px 10px 20px 0px rgb(0, 0, 0, 0.5),
+        inset -8px -15px 20px 0px rgba(35, 124, 188, 0.6);
     box-sizing: border-box;
     color: var(--text);
 }

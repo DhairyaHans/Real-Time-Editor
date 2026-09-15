@@ -89,7 +89,7 @@ function App() {
       if (prev.has(user)) return prev
 
       const newMap = new Map(prev)
-      newMap.set(user, color ?? getRandomRGBColor())
+      newMap.set(user, color ?? getRandomOKLCHColor())
       return newMap
     })
   }
@@ -217,8 +217,10 @@ function App() {
 
         const rect = range.getBoundingClientRect()
         const mirrorRect = mirror.getBoundingClientRect()
+        const color = cursorColorMap.get(cursor.user) ?? '#ffffff'
 
         const cursorElement = document.createElement('div')
+        cursorElement.style.setProperty('--cursor-color', color)
 
         cursorElement.className = 'remoteCursor'
         cursorElement.dataset.user = cursor.user
@@ -232,7 +234,6 @@ function App() {
         cursorElement.style.height =
             `${rect.height || 20}px`
 
-        const color = cursorColorMap.get(cursor.user) ?? '#ffffff'
 
         cursorElement.style.backgroundColor = color
         
@@ -241,8 +242,20 @@ function App() {
         label.textContent = cursor.user
         // label.style.background = color
         label.style.setProperty('--cursor-color', color)
-
         
+        // Extract values to compute the darker and lighter shade
+        const [l, c, h] = color.split(' ').map(Number);
+
+        const darkerL = Math.max(0, l - 0.20).toFixed(3); // Drops lightness by 0.20
+        const shadowRaw = `${darkerL} ${c} ${h}`;
+
+        const lighterL = Math.max(0, l + 0.20).toFixed(3); // Increases lightness by 0.20
+        const highlightRaw = `${lighterL} ${c} ${h}`;
+
+        // Push the raw space-separated values directly to CSS
+        label.style.setProperty('--cursor-highlight-shade', highlightRaw);
+        label.style.setProperty('--cursor-shadow-shade', shadowRaw);
+
         cursorElement.appendChild(label)
         overlay.appendChild(cursorElement)
 
@@ -279,6 +292,18 @@ function App() {
 
   const getRandomHexColor = () => `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
   const getRandomRGBColor = () => `${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}`;
+  const getRandomOKLCHColor = () => {
+    // Lightness: 0.4 to 0.85 (prevents pure black or pure white)
+    const l = (Math.random() * (0.85 - 0.4) + 0.4).toFixed(3);
+    
+    // Chroma: 0.1 to 0.25 (gives good, rich color intensity)
+    const c = (Math.random() * (0.25 - 0.1) + 0.1).toFixed(3);
+    
+    // Hue: 0 to 360 degrees
+    const h = Math.floor(Math.random() * 361);
+
+    return `${l} ${c} ${h}`;
+  };
 
   const updateCursorPosition = () => {
     const textArea = textareaRef.current;
